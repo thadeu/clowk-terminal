@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Verify
+        run: bun run verify
+
+      - name: Package release assets
+        run: |
+          mkdir -p release
+          ( cd dist && zip -r "../release/clowk-terminal-themes.zip" . )
+          cp "dist/iterm2/Clowk Night.itermcolors" "release/Clowk-Night.itermcolors"
+          cp "dist/terminal-app/Clowk Night.terminal" "release/Clowk-Night.terminal"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+            release/clowk-terminal-themes.zip \
+            "release/Clowk-Night.itermcolors" \
+            "release/Clowk-Night.terminal"
