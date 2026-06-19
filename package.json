@@ -1,6 +1,6 @@
 {
   "name": "clowk-terminal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Clowk color schemes for terminals — one palette, many formats (Ghostty, cmux, iTerm2, Terminal.app, Alacritty, kitty, WezTerm, Windows Terminal).",
   "type": "module",
   "license": "MIT",
