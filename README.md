@@ -22,9 +22,23 @@ terminal that matters.
 
 ## Get the themes
 
-**Download** the latest [release](https://github.com/thadeu/clowk-terminal/releases)
-— grab `clowk-terminal-themes.zip` (every format) or the individual
-`.itermcolors` / `.terminal` installers.
+**Download** from the latest [release](https://github.com/thadeu/clowk-terminal/releases).
+Each terminal has its own file, named `<terminal>-clowk-night.*` — so you grab only
+what you need:
+
+| Asset | For |
+|---|---|
+| `clowk-terminal-themes.zip` | everything, in one download |
+| `ghostty-clowk-night` | Ghostty / cmux |
+| `iterm2-Clowk-Night.itermcolors` | iTerm2 |
+| `terminal-app-Clowk-Night.terminal` | macOS Terminal.app |
+| `alacritty-clowk-night.toml` | Alacritty |
+| `kitty-clowk-night.conf` | kitty |
+| `wezterm-clowk-night.toml` | WezTerm |
+| `windows-terminal-clowk-night.json` | Windows Terminal |
+
+The install steps below use the `dist/…` paths from a local build; if you downloaded
+a release asset, just point at the downloaded file instead.
 
 **Or build them yourself:**
 

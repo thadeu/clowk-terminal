@@ -29,9 +29,13 @@ jobs:
       - name: Package release assets
         run: |
           mkdir -p release
-          ( cd dist && zip -r "../release/clowk-terminal-themes.zip" . )
-          cp "dist/iterm2/Clowk Night.itermcolors" "release/Clowk-Night.itermcolors"
-          cp "dist/terminal-app/Clowk Night.terminal" "release/Clowk-Night.terminal"
+          ( cd dist && zip -qr "../release/clowk-terminal-themes.zip" . )
+          find dist -type f -print0 | while IFS= read -r -d '' f; do
+            fmt="$(basename "$(dirname "$f")")"
+            base="$(basename "$f" | tr ' ' '-')"
+            cp "$f" "release/${fmt}-${base}"
+          done
+          ls -1 release
 
       - name: Create GitHub release
         env:
@@ -40,6 +44,4 @@ jobs:
           gh release create "$GITHUB_REF_NAME" \
             --title "$GITHUB_REF_NAME" \
             --generate-notes \
-            release/clowk-terminal-themes.zip \
-            "release/Clowk-Night.itermcolors" \
-            "release/Clowk-Night.terminal"
+            release/*
